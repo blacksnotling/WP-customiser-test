@@ -44,7 +44,7 @@ function cd_customizer_settings( $wp_customize ) {
 
   $wp_customize->add_setting( 'background_color' , array(
     'default'     => '#43C6E4',
-    'transport'   => 'refresh',
+    'transport'   => 'postMessage', //allows live refresh
   ) );
 
   $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'background_color', array(
@@ -68,4 +68,20 @@ function cd_customizer_css()
              body { background: #<?php echo get_theme_mod('background_color', '#43C6E4'); ?>; }
          </style>
     <?php
+}
+
+/**
+ *
+ * Enqueue's a JS file to enable live preview
+ *
+ */
+add_action( 'customize_preview_init', 'cd_customizer' );
+function cd_customizer() {
+	wp_enqueue_script(
+		  'cd_customizer',
+		  get_template_directory_uri() . '/assets/customizer.js',
+		  array( 'jquery','customize-preview' ),
+		  '',
+		  true
+	);
 }
