@@ -37,8 +37,9 @@ add_action( 'customize_register', 'cd_customizer_settings' );
  */
 function cd_customizer_settings( $wp_customize ) {
 
+  /** elements for setting up the colour section **/
   $wp_customize->add_section( 'cd_colors' , array(
-      'title'      => 'Colors',
+      'title'      => 'Coluors',
       'priority'   => 30,
   ) );
 
@@ -53,7 +54,41 @@ function cd_customizer_settings( $wp_customize ) {
     'settings'   => 'background_color',
   ) ) );
 
-  //Enables live preview for default elements
+  $wp_customize->add_section( 'cd_button' , array(
+    'title'      => 'The Button',
+    'priority'   => 20,
+) );
+
+  /** elements for setting up the button **/
+  $wp_customize->add_setting( 'cd_button_display' , array(
+    'default'     => true,
+    'transport'   => 'refresh',
+  ) );
+
+  $wp_customize->add_control( 'cd_button_display', array(
+    'label' => 'Button Display',
+    'section' => 'cd_button',
+    'settings' => 'cd_button_display',
+    'type' => 'radio',
+    'choices' => array(
+      'show' => 'Show Button',
+      'hide' => 'Hide Button',
+    ),
+  ) );
+
+  //Allows the button text to be changed
+  $wp_customize->add_setting( 'cd_button_text' , array(
+    'default'     => 'Come On In',
+    'transport'   => 'postMessage',
+  ) );
+
+  $wp_customize->add_control( 'cd_button_text', array(
+    'label' => 'Button Text',
+    'section'	=> 'cd_button',
+    'type'	 => 'text',
+  ) );
+
+  /** Enables live preview for default elements **/
   $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
   $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
 
