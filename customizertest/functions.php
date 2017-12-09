@@ -53,6 +53,10 @@ function cd_customizer_settings( $wp_customize ) {
     'settings'   => 'background_color',
   ) ) );
 
+  //Enables live preview for default elements
+  $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
+  $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
+
 }
 
 /**
