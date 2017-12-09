@@ -25,4 +25,10 @@
     } );
   } );
 
+  wp.customize( 'cd_photocount', function( value ) {
+    value.bind( function( newval ) {
+      $( '#photocount span' ).html( newval );
+    } );
+  } );
+
 } )( jQuery );
