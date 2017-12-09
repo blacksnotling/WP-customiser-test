@@ -4,9 +4,9 @@
 <div id="intro">
 <h1><?php bloginfo( 'site_title' ) ?></h1>
 <h2><?php bloginfo( 'description' ) ?></h2>
-<?php if( get_theme_mod( 'cd_button_display', 'show' ) == 'show' ) : ?>
-    <a href="" class='button'><?php echo get_theme_mod( 'cd_button_text', 'Come On In' ) ?></a>
-<?php endif ?>
+<div id='button-container'>
+    <?php cd_show_main_button() ?>
+</div>
 </div>
 
 </div>

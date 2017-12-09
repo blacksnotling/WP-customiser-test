@@ -62,7 +62,7 @@ function cd_customizer_settings( $wp_customize ) {
   /** elements for setting up the button **/
   $wp_customize->add_setting( 'cd_button_display' , array(
     'default'     => true,
-    'transport'   => 'refresh',
+    'transport'   => 'postMessage',
   ) );
 
   $wp_customize->add_control( 'cd_button_display', array(
@@ -86,6 +86,13 @@ function cd_customizer_settings( $wp_customize ) {
     'label' => 'Button Text',
     'section'	=> 'cd_button',
     'type'	 => 'text',
+  ) );
+
+  //Prevents the whole page from being unloaded when we hide/show the button.
+  //Uses callback function cd_show_main_button
+  $wp_customize->selective_refresh->add_partial( 'cd_button_display', array(
+    'selector' => '#button-container',
+    'render_callback' => 'cd_show_main_button',
   ) );
 
   /** Enables live preview for default elements **/
@@ -123,4 +130,15 @@ function cd_customizer() {
 		  '',
 		  true
 	);
+}
+
+/**
+ *
+ * Code to display "the button"
+ *
+ */
+function cd_show_main_button() {
+    if( get_theme_mod( 'cd_button_display', 'show' ) == 'show' ) {
+        echo "<a href='' class='button'>" . get_theme_mod( 'cd_button_text', 'Come On In' ) . "</a>";
+    }
 }
